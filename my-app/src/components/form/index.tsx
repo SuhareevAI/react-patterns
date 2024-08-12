@@ -1,14 +1,13 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import './style.scss';
-
-interface FormProps {
-    onUserAddition: (user: any) => void; // Принимаем функцию для обновления состояния верхнего компонента
-}
+import {FormProps} from "./types";
+import {useUsers} from "../../hooks/useUsers";
 
 const Form: React.FC<FormProps> = ({ onUserAddition }) => {
 	const [username, setUsername] = useState<string>('');
 	const [phone, setPhone] = useState<string>('');
 	const [website, setWebsite] = useState<string>('');
+	const {setUser} = useUsers();
 
 	const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value);
@@ -24,21 +23,8 @@ const Form: React.FC<FormProps> = ({ onUserAddition }) => {
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
-		fetch('https://jsonplaceholder.typicode.com/users', {
-			method: 'POST',
-			body: JSON.stringify({
-				username,
-				phone,
-				website,
-			}),
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-		})
-			.then((response) => response.json())
-			.then((user) => onUserAddition(user));
-	};
+		setUser(username, phone, website).then((user) => onUserAddition(user));
+	}
 
 	return (
 		<form onSubmit={handleSubmit} className="form-container">
