@@ -3,8 +3,7 @@ import "./style.scss";
 import {FC} from "react";
 import {ButtonWithLabelProps} from "./types";
 
-export const ButtonWithLabel : FC<ButtonWithLabelProps> = (props) => {
-	const {label, ...restProps} = props;
+export const ButtonWithLabel : FC<ButtonWithLabelProps> = ({label, ...restProps}) => {
 	return (
 		<div className="button-with-label">
 			<p>{label}</p>

@@ -1,4 +1,3 @@
-export interface TabsProps 
-{ 
+export interface TabsProps { 
     onChange: (tab: boolean) => void 
 }

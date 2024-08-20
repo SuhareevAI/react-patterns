@@ -3,5 +3,4 @@ export interface UserProps {
 	username: string;
 	phone: string;
 	website: string;
-  }
-  
+}
